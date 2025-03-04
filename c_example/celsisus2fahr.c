@@ -2,10 +2,14 @@
 
 int main()
 {
-    int celsius=15;
-    double fahr;
-    fahr= celsius*9/5+32;
+    int celsius;
+    printf("Input cel temp: ");
+    scanf("%d",&celsius);
+
     printf("celsius temp: %d \n",celsius);
+
+    double fahr;
+    fahr= 9.0/5.0*celsius+32;
     printf("fahr temp: %f \n",fahr);
 
     return 0;
