@@ -30,8 +30,8 @@ int main(void)
 void printAttribute(unsigned char attr)
 {
     printf("BOLD: %d\n",!(~(attr|~BOLD)));
-    printf("ITALIC: %d\n",!(~(attr|~ITALIC)));
-    printf("SHADOW: %d\n",!(~(attr|~SHADOW)));
-    printf("UL: %d\n",!(~(attr|~UL)));
+    printf("ITALIC: %d\n",!(~(attr|~ITALIC)>>1));
+    printf("SHADOW: %d\n",!(~(attr|~SHADOW)>>2));
+    printf("UL: %d\n",!(~(attr|~UL)>>3));
     printf("------------------------------\n");
 }
