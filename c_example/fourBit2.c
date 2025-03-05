@@ -26,12 +26,22 @@ int main(void)
     printAttribute(attr);
     return 0;
 }
-
+/* 방법1.
 void printAttribute(unsigned char attr)
 {
     printf("BOLD: %d\n",!(~(attr|~BOLD)));
     printf("ITALIC: %d\n",!(~(attr|~ITALIC)>>1));
     printf("SHADOW: %d\n",!(~(attr|~SHADOW)>>2));
     printf("UL: %d\n",!(~(attr|~UL)>>3));
+    printf("------------------------------\n");
+}
+*/
+
+void printAttribute(unsigned char attr)
+{
+    printf("BOLD: %d\n",(attr&BOLD));
+    printf("ITALIC: %d\n",(attr&ITALIC)>>1);
+    printf("SHADOW: %d\n",(attr&SHADOW)>>2);
+    printf("UL: %d\n",(attr&UL)>>3);
     printf("------------------------------\n");
 }
