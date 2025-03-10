@@ -12,21 +12,14 @@
 
 int main(void)
 {
-    int randomNumber[3];
+    int quetion[3];
     int num;
     int strike=0,ball=0;
     printf("숫자 3개 입력: ");
-    for(int i=0;i<3;i++)
+   
+    do
     {
-        scanf("%d",&num);
-    }
-    srand((unsigned int)time(NULL));
-    printf("출력 숫자 : ");
-
-    for(int i=0;i<3;i++)
-    {
-        randomNumber[i]=rand()%9;
-        printf("%d ",randomNumber[i]);
-    }
-
+        /* code */
+    } while ();
+    
 }

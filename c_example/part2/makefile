@@ -4,7 +4,7 @@ one2TenDoWhile randomTwoint randomWhile staticlocalVariable functionSum
 functionSum	returnValue	power dice sumArray
 sumMatrix findMax findValueinArray
 scoreGrade proScore average2022temp
-
+baseball
 
 all: ${TARGET}
 
@@ -38,6 +38,7 @@ findValueinArray:	$@
 scoreGrade: $@
 proScore:	$@
 average2022temp: $@
+baseball:	$@
 
 
 
