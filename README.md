@@ -6,12 +6,10 @@
 ---------------
 1. Vmware 설치
 Ubuntu 22.04 설치
-
 2.Gitbub
 Github 계정 생성
 Github 저장소 생성
 Github 저장소 Clone
-
 3.
 리눅스 설명
 4.
