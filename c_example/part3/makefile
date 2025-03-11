@@ -2,10 +2,8 @@ TARGET=	swap selection bubble qsort
 pointConcept endian pointer2 functionPointer
 voidPointer arrayPointer arrayAssignment
 arrayCompare arrayFunction sumArrayFunction
-sumMatrixFuction serial
-
-
-
+sumMatrixFuction serial hellowStr
+charPointerOperation
 
 all: ${TARGET}
 
@@ -25,8 +23,8 @@ arrayFunction:	$@
 sumArrayFunction:	$@
 sumMatrixFuction:	$@
 serial:	$@
-
-
+hellowStr:	$@
+charPointerOperation:	$@
 clean :
 	rm ${TARGET}
 
