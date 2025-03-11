@@ -3,6 +3,8 @@
         "stdio.h": "c",
         "types.h": "c",
         "stdbool.h": "c",
-        "arrayP3.C": "cpp"
+        "arrayP3.C": "cpp",
+        "time.h": "c",
+        "date.h": "c"
     }
 }
