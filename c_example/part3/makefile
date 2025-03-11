@@ -3,7 +3,7 @@ pointConcept endian pointer2 functionPointer
 voidPointer arrayPointer arrayAssignment
 arrayCompare arrayFunction sumArrayFunction
 sumMatrixFuction serial hellowStr
-charPointerOperation
+charPointerOperation strcatExemple
 
 all: ${TARGET}
 
@@ -25,6 +25,12 @@ sumMatrixFuction:	$@
 serial:	$@
 hellowStr:	$@
 charPointerOperation:	$@
+strcatExemple:	$@
+
+
+
+
+
 clean :
 	rm ${TARGET}
 
