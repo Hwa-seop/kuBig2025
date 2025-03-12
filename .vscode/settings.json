@@ -5,6 +5,8 @@
         "stdbool.h": "c",
         "arrayP3.C": "cpp",
         "time.h": "c",
-        "date.h": "c"
-    }
+        "date.h": "c",
+        "mysql.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "enabled"
 }
