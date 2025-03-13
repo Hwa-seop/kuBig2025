@@ -5,7 +5,7 @@ arrayCompare arrayFunction sumArrayFunction
 sumMatrixFuction serial hellowStr
 charPointerOperation strcatExemple
 filePointer fileDescriptor dynamicAllocation
-charAdress
+charAdress unionExemple enumExample
 
 
 all: ${TARGET}
@@ -33,5 +33,9 @@ filePointer: $@
 fileDescriptor: $@
 dynamicAllocation:	$@
 charAdress:	$@
+unionExemple:	$@
+enumExample:	$@
+
+
 clean :
 	rm ${TARGET}
