@@ -9,5 +9,5 @@
         "mysql.h": "c"
     },
     "C_Cpp.errorSquiggles": "enabled",
-    "cmake.sourceDirectory": "/home/hwaseop/ku_lhs2025/sqlQury"
+    "cmake.sourceDirectory": "/home/hwaseop/ku_lhs2025"
 }
