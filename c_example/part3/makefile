@@ -4,8 +4,8 @@ voidPointer arrayPointer arrayAssignment
 arrayCompare arrayFunction sumArrayFunction
 sumMatrixFuction serial hellowStr
 charPointerOperation strcatExemple
-filePointer fileDescriptor
-
+filePointer fileDescriptor dynamicAllocation
+charAdress
 
 
 all: ${TARGET}
@@ -31,7 +31,7 @@ charPointerOperation: $@
 strcatExemple: $@
 filePointer: $@
 fileDescriptor: $@
-
-
+dynamicAllocation:	$@
+charAdress:	$@
 clean :
 	rm ${TARGET}
