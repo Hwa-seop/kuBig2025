@@ -10,7 +10,7 @@ int main(void)
     str3=(char *)malloc(sizeof(char)*6);
     strcpy(str3,str2);
     printf("apple : %s adress : %p\n","apple","apple");
-    printf("str1: %s, adress: %p\n",str1,str1); //데이터영역
+    printf("str1: %s, adress: %p\n",str1,str1); //데이터 영역
     printf("str2: %s, adress: %p\n",str2,str2); //스택영역   
     printf("str3: %s, adress: %p\n",str3,str3);   
 

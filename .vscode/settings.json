@@ -6,7 +6,8 @@
         "arrayP3.C": "cpp",
         "time.h": "c",
         "date.h": "c",
-        "mysql.h": "c"
+        "mysql.h": "c",
+        "unionexemple": "c"
     },
     "C_Cpp.errorSquiggles": "enabled",
     "cmake.sourceDirectory": "/home/hwaseop/ku_lhs2025"
