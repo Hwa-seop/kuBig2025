@@ -13,7 +13,7 @@ int main(void)
     scanf("%d",&num);
 
     if(num>0)
-        pos="양수";sta
+        pos="양수";
     else if(num<0)
     pos="음수";
     else

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(part1)
+project(part3)
 
 
 #모든 .c파일 감지
@@ -10,6 +10,13 @@ foreach(EXECUTABLE ${EXECUTABLES})
      get_filename_component(EXE_NAME ${EXECUTABLE} NAME_WE)
      add_executable(${EXE_NAME} ${EXECUTABLE})
 endforeach()
+
+#하위 디렉토리 추가
+add_subdirectory(CarSerial)
+add_subdirectory(date)
+#add_subdirectory(MyRandom)
+add_subdirectory(string)
+
 
 # set(CMAKE_C_COMPILER "/usr/bin/gcc")
 # set(CMAKE_C_STANDARD 99)
