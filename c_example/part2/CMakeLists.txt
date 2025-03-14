@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(part1)
+project(part2)
 
 
 #모든 .c파일 감지
