@@ -8,8 +8,8 @@ int main(void)
     // 첫 번째 문자 입력
     printf("첫 번째 문자를 입력하세요: ");
     ch = getc(stdin);
-    while ((ch = getchar()) != '\n' && ch != EOF);
-    //getchar();  // 버퍼에 남은 1 개행문자 제거
+   while ((ch = getchar()) != '\n' && ch != EOF);
+    //getchar();  // 버퍼에 남은 1 개행문자 제거   
     printf("입력한 문자는 %c 입니다.\n", ch);
 
     // 두 번째 입력 (문자열)
