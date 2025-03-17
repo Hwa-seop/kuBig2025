@@ -57,23 +57,23 @@ int scoreGame(BowlingGame *game) {
 // 볼링 게임 실행
 void playGame(BowlingGame *game) {
     system(CLEAR_SCREEN);
-    printf("🎳 볼링 게임을 시작합니다! 🎳\n");
+    printf("-----볼링 게임을 시작합니다!-----\n");
     for (int frame = 0; frame < FRAMES; frame++) {
         int firstRoll, secondRoll = 0;
 
-        printf("\n🔹 %d 프레임 - 첫 번째 투구: ", frame + 1);
+        printf("\n %d 프레임 - 첫 번째 투구: ", frame + 1);
         scanf("%d", &firstRoll);
         roll(game, firstRoll);
 
         if (firstRoll < 10 || frame == 9) { // 마지막 프레임은 3번까지 가능
-            printf("🔹 %d 프레임 - 두 번째 투구: ", frame + 1);
+            printf(" %d 프레임 - 두 번째 투구: ", frame + 1);
             scanf("%d", &secondRoll);
             roll(game, secondRoll);
         }
 
         if (frame == 9 && (firstRoll + secondRoll >= 10)) { // 10 프레임 보너스 투구
             int bonusRoll;
-            printf("🔹 보너스 투구: ");
+            printf("보너스 투구: ");
             scanf("%d", &bonusRoll);
             roll(game, bonusRoll);
         }
@@ -85,8 +85,8 @@ void playGame(BowlingGame *game) {
 
 // 점수판 출력
 void displayScore(BowlingGame *game) {
-    printf("\n🎳 현재 스코어 보드 🎳\n");
-    printf("+----+----+----+----+----+----+----+----+----+----+\n");
+    printf("\n-----현재 스코어 보드-----\n");
+    printf("----------------------------------------------------\n");
     for (int i = 0, rollIndex = 0; i < FRAMES; i++) {
         printf("| %2d ", game->rolls[rollIndex]); // 첫 번째 투구
         if (game->rolls[rollIndex] == 10) { // 스트라이크
@@ -97,7 +97,7 @@ void displayScore(BowlingGame *game) {
             rollIndex += 2;
         }
     }
-    printf("|\n+----+----+----+----+----+----+----+----+----+----+\n");
+    printf("|\n---------------------------------------------------\n");
 
     printf("\n총 점수: %d\n", scoreGame(game));
 }
@@ -108,6 +108,6 @@ int main() {
     initGame(&game);
     playGame(&game);
 
-    printf("\n🎉 게임 종료! 최종 점수: %d 🎉\n", scoreGame(&game));
+    printf("\n-----게임 종료! 최종 점수: %d-----\n", scoreGame(&game));
     return 0;
 }
