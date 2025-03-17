@@ -12,5 +12,8 @@ int main(void)
     printf("DIV %d + %d = %d\n",a,b,a/b);
     printf("나머지 %d + %d = %d\n",a,b,a%b);
     
+int num;
+    int *p=num;
+num= 100;
     return 0;
 }
