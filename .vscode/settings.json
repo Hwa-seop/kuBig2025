@@ -9,8 +9,10 @@
         "mysql.h": "c",
         "unionexemple": "c",
         "booksql.h": "c",
-        "io.h": "c"
+        "io.h": "c",
+        "interrupt.h": "c",
+        "delay.h": "c"
     },
-    "C_Cpp.errorSquiggles": "enabled",
+    "C_Cpp.errorSquiggles": "disabled",
     "cmake.sourceDirectory": "/home/hwaseop/ku_lhs2025"
 }
