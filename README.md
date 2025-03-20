@@ -288,7 +288,41 @@ UART 설정
  ls -al /dev/ttyUSB0
 sudo chmod 666 /dev/ttyUSB0
 
+----------------------------------------------------------------------
+#225-03-20
 
+udev 세팅
+-----------------------------------------------------------------------------------------------------------
+lsusb -v 문제확인
+idVender
+idProduct 확인
+
+sudo nano /etc/udev/rules.d/99-avrisp.rules
+
+나노에서 아래 명령문 두개 실행, idvendor,idproduct 값을 바꿔줘야함
+
+SUBSYSTEM=="usb", ATTR(idVendor)=="0403", ATTR(idProduct)=="6001", MODE="0666"
+SUBSYSTEM=="usb", ATTR(idVendor)=="03eb", ATTR(idProduct)=="2104", MODE="0666"
+
+sudo udevadm control
+sudo udevadm trigger
+
+idVendor           0x0403 Future Technology Devices International, Ltd
+idProduct          0x6001 FT232 Serial (UART) IC
+
+idVendor           0x03eb Atmel Corp.
+idProduct          0x2104 AVR ISP mkII
+
+--------------------------------------------------------------------------------------------------
+
+A./D컨버터
+
+타이머/카운터: 
+-사용하려면 인터럽트가 필요함
+
+
+sei();는 전역 인터럽트를 활성화하는 함수입니다.
+반대로 cli();는 전역 인터럽트를 비활성화하는 함수입니다.
 
 
 
