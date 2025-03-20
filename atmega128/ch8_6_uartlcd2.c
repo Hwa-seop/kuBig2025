@@ -1,0 +1,76 @@
+#include "lcd.h"
+#include "uart0.h"
+#include <avr/interrupt.h>
+#include <avr/io.h>
+#include <stdio.h>
+
+volatile uint8_t intData='0';
+uint8_t cursor =0;
+
+int main()
+{
+    uart0Init(); //헤더파일사용하기 위해 init 해줘야함
+    lcdInit();
+
+    stdin = &INPUT;
+    stdout = &OUTPUT;
+
+    DDRE = 0X02; //RX(입력),TX(출력)1, SW0-3 입력
+    EICRB = 0xFF; // 4567 상승 엣지에서 동장
+    EIMSK = 0xF0; // 4567 허용
+    EIFR = 0xF0;  // 4567 클리어
+    sei(); //전역 인터럽트 허용
+
+    char cData;
+
+    lcdGotoXY(0,0); //시작점
+
+    while (1)
+    {
+        if(intData != '0')
+        {
+            printf("\n\r Input Switch : %c",intData);
+            intData='0';
+        }
+        while (UCSR0A & (1 << RXC0))
+        {
+            cData = fgetc(stdin);
+            lcdDataWrite(cData);
+            cursor++;
+            if (cursor == 16)
+                lcdGotoXY(0, 1);
+            else if (cursor >= 32)
+            {
+                cursor = 0;
+                lcdGotoXY(0, 0);
+            }
+        }
+    }
+    return 0;
+}
+//  해제해도 되는데 그럼 아래 내용을 유지하는 이유는 뭐임?
+
+// ISR(INT4_vect)
+// {
+//     cli(); //sei() 로 전역설정한걸 해제하는것, 인터럽트 중복 방지
+//     intData='1';
+//     sei();
+// }
+// ISR(INT5_vect)
+// {
+//     cli(); //sei() 로 전역설정한걸 해제하는것, 인터럽트 중복 방지
+//     intData='2';
+//     sei();
+// }
+// ISR(INT6_vect)
+// {
+//     cli(); //sei() 로 전역설정한걸 해제하는것, 인터럽트 중복 방지
+//     intData='3';
+//     sei();
+// }
+// ISR(INT7_vect)
+// {
+//     cli(); //sei() 로 전역설정한걸 해제하는것, 인터럽트 중복 방지
+//     intData='4';
+//     sei();
+// }
