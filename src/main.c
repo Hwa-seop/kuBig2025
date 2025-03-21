@@ -1,26 +1,41 @@
-#include <avr/interrupt.h>
+#include "lcd.h"
 #include <avr/io.h>
 #include <util/delay.h>
+#include <stdlib.h>
 
 int main(void)
 {
-    
-    DDRC = 0x00;
-    DDRB |=_BV(PB4);
+    DDRE = _BV(PE3);    // PE3 출력 설정.
 
-    TCCR0 = _BV(WGM00) | _BV(WGM01) | _BV(COM01)| _BV(CS01);
-   
-    uint8_t brightness=0;
-    int8_t delta=1;
+    TCCR3A = _BV(COM3A1) | _BV(WGM31);
+    TCCR3B = _BV(WGM33) | _BV(WGM32) | _BV(CS31);
+    // 분주비 8, fast PWM mode, timer3
+    ICR3 = 40000;   // 20ms -> 16000000 / 8 = 2000000 Hz -> 500us * 40000 = 20ms
+    OCR3A = 3000;   // 40000 : 20 = ? : 1.5 -> ? = 60000 / 20 = 3000 -> 2000~4000 -> -90 ~ 90
 
-    while (1)
+    lcdInit();
+    lcdClear();
+    char buffer[16];
+
+    while(1)
     {
-        OCR0 = brightness; // 0~255
-        _delay_ms(10);
-        brightness += delta;
-        if (brightness == 0 || brightness == 255)
+        for(uint16_t pulse = 2000; pulse <= 6000; pulse += 40)
         {
-            delta = -delta;
+            OCR3A = pulse;
+            itoa(pulse, buffer, 10);
+            lcdGotoXY(0, 0);
+            lcdPrint(buffer);
+            _delay_ms(20);
+        }
+        for(uint16_t pulse = 6000; pulse >= 2000; pulse -= 40)
+        {
+            OCR3A = pulse;
+            itoa(pulse, buffer, 10);
+            lcdGotoXY(0, 0);
+            lcdPrint(buffer);
+            _delay_ms(20);
         }
     }
+
+    return 0;
 }
