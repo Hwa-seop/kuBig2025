@@ -11,7 +11,9 @@
         "booksql.h": "c",
         "io.h": "c",
         "interrupt.h": "c",
-        "delay.h": "c"
+        "delay.h": "c",
+        "sht2x.h": "c",
+        "uart0.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "cmake.sourceDirectory": "/home/hwaseop/ku_lhs2025"
