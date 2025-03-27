@@ -13,7 +13,12 @@
         "interrupt.h": "c",
         "delay.h": "c",
         "sht2x.h": "c",
-        "uart0.h": "c"
+        "uart0.h": "c",
+        "i2c.h": "c",
+        "lcd_i2c.h": "c",
+        "clcd.h": "c",
+        "uart.h": "c",
+        "stdlib.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "cmake.sourceDirectory": "/home/hwaseop/ku_lhs2025"
