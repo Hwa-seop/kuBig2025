@@ -1,14 +1,20 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
-int main()
+int main(void)
 {
-    while(1)
+    DDRC |= (1 << PC0);  // PC0를 출력으로 설정
+
+    while (1)
     {
-        PORTC = 0x00;  // 0b00000000 LED 제어, 비트로 되어있음 
-        _delay_ms(1000); //1초 대기
-        PORTC = 0x0F; // 0b00001111, b=바이너리라는 뜻, 
-        _delay_ms(1000); 
-    
+        // 부저 ON
+        PORTC |= (1 << PC0);
+        _delay_ms(1);  // 1ms ON
+
+        // 부저 OFF
+        PORTC &= ~(1 << PC0);
+        _delay_ms(1);  // 1ms OFF
+
+        // 이 ON/OFF 반복으로 약 500Hz의 사각파 생성 → 부저 울림
     }
 }
