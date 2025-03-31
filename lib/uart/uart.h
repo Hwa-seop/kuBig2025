@@ -14,8 +14,12 @@
 
 void uart0_init(void);
 void uart0_rx_int_init(void);
-void uart0_trasnmit(char data);
+int uart0_trasnmit(char data, FILE *stream);
 unsigned char uart0_receive(void);
+void uart0PrintString(char *str);
+void uart0Print1ByteNumber(unsigned char n);
+
+
 extern FILE OUTPUT;
 extern FILE INPUT;
 

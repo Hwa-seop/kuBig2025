@@ -1,52 +1,46 @@
-#define F_CPU 16000000UL //CPU의 클럭 주파수 설정(16Mhz)
-#include <avr/io.h>
-#include <util/delay.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <libserialport.h>
 
-// 서보모터 초기화 (PE3 = OC3A)
-void Servo_Init();
-// 각도 → 펄스 폭 설정 (확장된 범위: 0도 ~ 180도 이상)
-void Servo_Set_Angle(uint8_t angle);
+#define BAUDRATE 115200  // 반드시 ATmega128 보드와 동일해야 함
 
-int main(void)
-{
-    Servo_Init(); //타미어 세팅 및 PWM 초기화
+void check_serial_ports();
 
-    while (1)
-    {
-        Servo_Set_Angle(0);     // 0도 위치
-        _delay_ms(1000);
+int main() {
+    struct sp_port *port;
+    char *port_name = "/dev/ttyUSB0";  // 사용 중인 포트명으로 수정 (예: COM3, /dev/ttyUSB0 등)
 
-        Servo_Set_Angle(180);   // 180도 위치
-        _delay_ms(1000);
-        // -------------------서보모터 수동 동작--------------
-        // OCR3A=2000;
-        // _delay_ms(1000);
-        // OCR3A=3000;
-        // _delay_ms(1000);
-        // OCR3A=4000;
-        // _delay_ms(1000);
-        // OCR3A=3000;
-        // _delay_ms(1000);
-    //----------------------------------------------------------
+    // 포트 열기
+    if (sp_get_port_by_name(port_name, &port) != SP_OK) {
+        fprintf(stderr, "포트 %s 찾을 수 없음\n", port_name);
+        return 1;
     }
-}
- 
-// 서보모터 초기화 (PE3 = OC3A)
-void Servo_Init()
-{
-    DDRE |= (1 << PE3);  // PE3(OCA3) 출력 설정
 
-    // Fast PWM, TOP = ICR3, 비반전 모드
-    TCCR3A |= (1 << COM3A1) | (1 << WGM31);
-    TCCR3B |= (1 << WGM33) | (1 << WGM32) | (1 << CS31);  // 분주비 8
-    ICR3 = 40000;  // 20ms 주기 (0.5us * 40000 = 20ms)
-}
+    if (sp_open(port, SP_MODE_READ) != SP_OK) {
+        fprintf(stderr, "포트 %s 열기 실패\n", port_name);
+        return 1;
+    }
 
+    // 시리얼 설정
+    sp_set_baudrate(port, BAUDRATE);
+    sp_set_bits(port, 8);
+    sp_set_parity(port, SP_PARITY_NONE);
+    sp_set_stopbits(port, 1);
+    sp_set_flowcontrol(port, SP_FLOWCONTROL_NONE);
 
-// 각도 → 펄스 폭 설정 (확장된 범위: 0도 ~ 180도 이상)
-void Servo_Set_Angle(uint8_t angle)
-{
-    if (angle > 180) angle = 180;
-    uint16_t pulse = ((angle * 1000UL) / 180) + 2000;  // 대략 2.0ms~3.0ms (조금 확장)
-    OCR3A = pulse;
+    printf("포트 %s 에 연결됨. 센서 데이터를 수신 중...\n\n", port_name);
+
+    char buffer[256];
+    while (1) {
+        int bytes_read = sp_blocking_read(port, buffer, sizeof(buffer) - 1, 1000);
+        if (bytes_read > 0) {
+            buffer[bytes_read] = '\0'; // 문자열 종료
+            printf("%s", buffer);      // 수신한 데이터 출력
+            fflush(stdout);
+        }
+    }
+
+    sp_close(port);
+    sp_free_port(port);
+    return 0;
 }
