@@ -289,7 +289,7 @@ UART 설정
 sudo chmod 666 /dev/ttyUSB0
 
 ----------------------------------------------------------------------
-#225-03-20
+#25-03-20
 
 udev 세팅
 -----------------------------------------------------------------------------------------------------------
@@ -376,6 +376,140 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2104", MODE="0666"
 65535-18750=46785 +1
 
 -----------------------------------------------
+#2025-04-01
 
+-라즈베리파이(임베디드 +os)
+-운영체제론
+-임베디드+os->깊은설정(커널)-> 최적화
+		->RTOS(OS같이 여러 프로세스를 다루지지만 임베디드를 최소화하여 사용)
+
+--> 임베디드 리눅스라고한다.
+
+- os 설정시 느려짐
+-핸드폰.로봇,키오스크 등
+
+리눅스: 종류가 많음 
+-
+-------------------------------------
+#라즈베리파이 설치 방법
+라즈베리 파이 4
+운영체제 라즈베리파이 OS 64비트
+컴퓨터에 SD카드꽂아야함
+
+사용자이름 : hs
+비번 : qwe123 
+무선랜: turtle
+무선랜 비번 : turtlebot3
+무선랜 국가 : KR
+로케일 설정- 시간대:Asia/Seoul
+		-키보드레이아웃 : us
+
+서비스 SSH 비밀번호 인증사용
+옵션 밑에 두개 ON
+
+----VNC설치: vnc viewer 다운로드-windows
+https://www.realvnc.com/en/connect/download/viewer/windows/?lai_vid=eeyaMgwXMc4xy&lai_sr=5-9&lai_sl=l
+--------------------------------------------------
+
+-리눅스는 POSIX를 지원하기 떄문에 다른 유닉스에서 개발된 애플리케이션을 쉽게 사용할수 있으며. X윈도우 같은 유닉스 표준 GUI 시스템이 지원된다.
+
+
+ㅕ애
+1. 원격 접속ㄴ
+와이파이 동글이로 와이파이 접속
+turtle, turtlebot3
+
+그다음 인터넷에서 192.168.01 접속
+admin
+:비번 admin
+
+들어오고 관리도구,
+
+
+2. 가상환경
+sudo apt install net-tools-툴설치
+터미널 :ifconifig 
+ens33: 192.168 확인
+
+-네트워크 설정 
+manage-vurtual machinesetting
+vscode창에서 왼쪽 맨 아래 파랑색 누르고 SSH에 연결
+
+터미널에 ssh입력해서 usage확인
+터미널에 ssh hs@192.168.0.55 -> 할당 받은 내pc ip
+-yes누르고 설치
+
+http://192.168.0.1/sess-bin/timepro.cgi?tmenu=main_frame&smenu=main_frame
+누르고ip 확인
+--------------------------
+sudo raspi-config: 텍스트 인터페이스
+5번 선택후 -로테일-0 en_us.utf8-8선택
+en_GB.UTF선택
+
+-------------
+원격 라즈베리파이 설정
+파랑색-connet to host 
+-add new ssh host-
+-hs@192.168.0.55
+-home/hs/ 처음꺼 설정
+-오른쪽 아래 connet 누름-> 새창 실행- 비밀번호 입력
+
+3번(Interface options) 들어가고 VNC,I2C,SPI ENABLE
+---------------------------
+VNCviewer:-ip192.168.0.55입력(하고 들어갔음.
+내 ip가(55랑76)이있음
+--------------------------------------------
+깃 연결: gitclone https://github.com/Hwa-seop/kuBig2025.git
+오픈 폴더하고 원래 사용하던 폴더에 접속
+
+
+라즈베리 파이 실행.
+hs@hs:~/kuBig2025/raspberryPi $ cc -o hello  helloRaspberry.c
+hs@hs:~/kuBig2025/raspberryPi $ ./hello
+안녕하세요!
+
+
+-와이어링 파일 설치
+git clone https://github.com/WiringPi/WiringPi.git
+hs@hs:~/kuBig2025/raspberryPi/WiringPi $ sudo ./build
+
+cc-o hello  helloRaspberry.c -lwiringPi
+-l을 뒤에 붙여줘야한다.
+
+-----------------------------
+현재 git clone 연결
+
+git remote -v 로 본인의 레포지토리로 지정이 되어있는지 확인하시고
+
+git config --global user.name "사용자 이름"
+git config --global user.email "이메일 주소"
+
+을 본인에 맞춰 수정해서 입력하시면 git push가 정상적으로 될겁니다
+------------------------------------------
+표준규약 HAL
+led 스위치 제어하고
+make 파일 만듦
+
+-------------------------
+사용자 모드 .커널 모드가 있는데 권한 설정이 되어있음
+메모리 문제 때문에 그럼, 핵심적인것은 커널모드에있음.
+메모리 접근을 못하게 되어있음.(보안,리소스관리 등을 위해)
+커널을 통해서 접근을 할수밖에 없음
+
+
+------------------------------------------
+make파일
+
+TARGET= helloRaspberry switch_led device_gpio interupt
+all: ${TARGET}
+CFLAGS = -lwiringPi
+
+% : %.c
+	cc -o $@ $< ${CFLAGS}
+clean :
+	rm ${TARGET}
+
+---------------------------------------------
+커널 모듈 추가 책 67P~71P 참고
 
 
