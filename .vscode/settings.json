@@ -22,7 +22,9 @@
         "dht11.h": "c",
         "string.h": "c",
         "wiringpi.h": "c",
-        "compare": "c"
+        "compare": "c",
+        "module.h": "c",
+        "led_modulec": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "cmake.sourceDirectory": "/home/hs/kuBig2025"
