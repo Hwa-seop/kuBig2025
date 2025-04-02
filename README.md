@@ -512,4 +512,86 @@ clean :
 ---------------------------------------------
 커널 모듈 추가 책 67P~71P 참고
 
+#2025-04-02
+
+복합적인 프로세스 방법
+1. 다중터미널
+2. 데몬- 터미널 종속적으로 실행된다
+멀티태스킹 운영 체제에서 데몬은 사용자가 직접적으로 제어하지 않고, 백그라운드에서 돌면서 여러 작업을 하는 프로그램을 말한다. 시스템 로그를 남기는 syslogd처럼 보통 데몬을 뜻하는 ‘d’를 이름 끝에 달고 있으며, 일반적으로 프로세스로 실행된다.
+3. nohup
+
+프로세스 종료명령어(ps,kil),
+
+tmux(터미널 멀티플렉서): 터미널을 다루는데 터미널이 꺼지지 않음.
+
+-systemd(시스템 데몬): systemd는 리눅스 시스템과 서비스 관리자로, 초기화 시스템(init), 시스템 서비스 관리자, 그리고 세션 관리자의 역할을 합니다. 대부분의 최신 리눅스 배포판에서는 기본 초기화 시스템으로 systemd를 사용합니다. systemd는 시스템의 부팅 과정을 책임지며, 시스템이 가동되는 동안 서비스들을 시작, 중지, 관리합니다.
+
+------------------------------------------------------
+
+터미널 다중제어.
+-top : os확인
+-tail -f /var/log/syslog
+-sudo apt install htop: 설치
+-ps -al
+
+nohup htop &
+----------------------------------------------------------
+touch mydemon.sh
+code mydemon.sh
+
+
+#daemon.sh
+
+#!/bin/bash
+
+mkdir -p /var/log/mydaemon
+
+while true; do
+    date >> /var/log/mydaemon/system_info.log
+    uptime >> /var/log/mydaemon/system_info.log
+    echo "----------------------------" >> /var/log/mydaemon/system_info.log
+    sleep 5
+done
+-----------------------------------------------------
+#mydaemon.service
+
+[Unit]
+Description=My System Monitor Daemon
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/home/hwaseop/mydemon.sh
+Restart=always
+User=root
+StandardOutput=append:/var/log/mydaemon/service.log
+StandardError=append:/var/log/mydaemon/error.log
+
+[Install]
+WantedBy=multi-user.target
+-------------------------------------------------------
+ ls -al 권한 확인
+sudo chmod +x mydaemon.sh: -> x 권한 부여
+o ./mydemon.sh
+$ cat /var/log/mydaemon/system_info.log
+
+=-------------------------------------------
+sudo systemctl start mydaemon.service
+sudo systemctl status mydaemon.service
+
+1. sudo touch mydaemon.service
+2. sudo nano mydaemon.service
+3. cat mydaemon.service
+cd /etc/systemd/system
+4. sudo systemctl stop mydaemon.service
+5. sudo systemctl start mydaemon.service
+6. sudo systemctl status mydaemon.service
+sudo systemctl daemon-reload 
+
+
+LED_PWD제어
+BUZZER제어
+i2cdetect -y 1 : i2c장비를 연결했을떄 하드웨어 장비를 감지
+
+
 
