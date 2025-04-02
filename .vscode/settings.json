@@ -21,7 +21,8 @@
         "stdlib.h": "c",
         "dht11.h": "c",
         "string.h": "c",
-        "wiringpi.h": "c"
+        "wiringpi.h": "c",
+        "compare": "c"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "cmake.sourceDirectory": "/home/hs/kuBig2025"
