@@ -594,4 +594,84 @@ BUZZER제어
 i2cdetect -y 1 : i2c장비를 연결했을떄 하드웨어 장비를 감지
 
 
+2025-04-03
+
+---------------------------------------------------------
+권한 획득 및 제거
+cd /sys/class/gpio/
+ls
+echo 23 >export
+echo 535 >export 바꿔줘야한다,
+그다음 ls하면 gpio535를 확인할 수 있다.
+echo 535 > unexport
+
+ehco
+-echo 23 > 
+리눅스/유닉스 쉘 명령어로, 다음과 같은 의미를 가지고 있음.
+단순히 23이라는 내용을 가진 텍스트 파일 export가 생성됨
+기존에 export 파일이 있었다면 내용이 덮어쓰기됨
+---------------------------------------------------------------
+hs@hs:~/kuBig2025/raspberryPi/module/led $ > 이 폴더에서
+커널 led제어
+make
+sudo insmod led_module.ko -led4개 on
+dmesg
+sudo rmmod led_module
+-------------------------------------------------------
+kernel interrupt를 통한 switch 상태 확인 프로그램.
+
+sudo insmod switch_interrupt.ko
+sudo rmmod switch_interrupt
+
+dmesg로 메세지를 확인할수있음
+------------------------------------------------------
+
+디바이스 드라이버
+sudo insmod driver_exam.ko
+sudo mknod /dev/driver_exam c 220 0 ->드라이버 생성
+sudo chmod 666 /dev/driver_exam ->드라이버 권한 설정
+
+
+echo "write" > /dev/driver_exam
+----------------------------------------------------------------
+폴더 잘 확인해서 해야한다.
+
+1.led_driver
+
+ls /dev
+
+sudo insmod led_driver.ko
+sudo mknod /dev/led_driver c 221 0
+sudo chmod 666 /dev/led_driver
+ls /dev/led_driver -al
+(삭제: sudo rm /dev/led_driver)
+dmesg
+rm led_driver_native
+dmesg
+cc led_driver_native.c -o led_driver_native
+./led_driver_native 
+
+
+----switch_driver-----------------------
+ls /dev (dev확인)
+make
+sudo insmod switch_driver.ko
+sudo rmmod switch_driver
+dmesg
+
+sudo insmod switch_driver.ko
+sudo mknod /dev/switch_driver c 222 0
+sudo chmod 666 /dev/switch_driver
+dmesg
+ls /dev/switch_driver -al
+
+cc switch_driver_native.c -o switch_driver_native
+./switch_driver_native
+
+*에러
+insmod: ERROR: could not insert module switch_driver.ko: File exists
+-> rm으로 지웠다가 다시 코드실행
+
+
+
 
