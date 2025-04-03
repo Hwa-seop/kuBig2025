@@ -1,0 +1,1 @@
+savedcmd_/home/hs/kuBig2025/raspberryPi/module/switch_driver/modules.order := {   echo /home/hs/kuBig2025/raspberryPi/module/switch_driver/switch_driver.o; :; } > /home/hs/kuBig2025/raspberryPi/module/switch_driver/modules.order
