@@ -289,7 +289,7 @@ UART 설정
 sudo chmod 666 /dev/ttyUSB0
 
 ----------------------------------------------------------------------
-#225-03-20
+#25-03-20
 
 udev 세팅
 -----------------------------------------------------------------------------------------------------------
@@ -376,6 +376,302 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2104", MODE="0666"
 65535-18750=46785 +1
 
 -----------------------------------------------
+#2025-04-01
+
+-라즈베리파이(임베디드 +os)
+-운영체제론
+-임베디드+os->깊은설정(커널)-> 최적화
+		->RTOS(OS같이 여러 프로세스를 다루지지만 임베디드를 최소화하여 사용)
+
+--> 임베디드 리눅스라고한다.
+
+- os 설정시 느려짐
+-핸드폰.로봇,키오스크 등
+
+리눅스: 종류가 많음 
+-
+-------------------------------------
+#라즈베리파이 설치 방법
+라즈베리 파이 4
+운영체제 라즈베리파이 OS 64비트
+컴퓨터에 SD카드꽂아야함
+
+사용자이름 : hs
+비번 : qwe123 
+무선랜: turtle
+무선랜 비번 : turtlebot3
+무선랜 국가 : KR
+로케일 설정- 시간대:Asia/Seoul
+		-키보드레이아웃 : us
+
+서비스 SSH 비밀번호 인증사용
+옵션 밑에 두개 ON
+
+----VNC설치: vnc viewer 다운로드-windows
+https://www.realvnc.com/en/connect/download/viewer/windows/?lai_vid=eeyaMgwXMc4xy&lai_sr=5-9&lai_sl=l
+--------------------------------------------------
+
+-리눅스는 POSIX를 지원하기 떄문에 다른 유닉스에서 개발된 애플리케이션을 쉽게 사용할수 있으며. X윈도우 같은 유닉스 표준 GUI 시스템이 지원된다.
+
+
+ㅕ애
+1. 원격 접속ㄴ
+와이파이 동글이로 와이파이 접속
+turtle, turtlebot3
+
+그다음 인터넷에서 192.168.01 접속
+admin
+:비번 admin
+
+들어오고 관리도구,
+
+
+2. 가상환경
+sudo apt install net-tools-툴설치
+터미널 :ifconifig 
+ens33: 192.168 확인
+
+-네트워크 설정 
+manage-vurtual machinesetting
+vscode창에서 왼쪽 맨 아래 파랑색 누르고 SSH에 연결
+
+터미널에 ssh입력해서 usage확인
+터미널에 ssh hs@192.168.0.55 -> 할당 받은 내pc ip
+-yes누르고 설치
+
+http://192.168.0.1/sess-bin/timepro.cgi?tmenu=main_frame&smenu=main_frame
+누르고ip 확인
+--------------------------
+sudo raspi-config: 텍스트 인터페이스
+5번 선택후 -로테일-0 en_us.utf8-8선택
+en_GB.UTF선택
+
+-------------
+원격 라즈베리파이 설정
+파랑색-connet to host 
+-add new ssh host-
+-hs@192.168.0.55
+-home/hs/ 처음꺼 설정
+-오른쪽 아래 connet 누름-> 새창 실행- 비밀번호 입력
+
+3번(Interface options) 들어가고 VNC,I2C,SPI ENABLE
+---------------------------
+VNCviewer:-ip192.168.0.55입력(하고 들어갔음.
+내 ip가(55랑76)이있음
+--------------------------------------------
+깃 연결: gitclone https://github.com/Hwa-seop/kuBig2025.git
+오픈 폴더하고 원래 사용하던 폴더에 접속
+
+
+라즈베리 파이 실행.
+hs@hs:~/kuBig2025/raspberryPi $ cc -o hello  helloRaspberry.c
+hs@hs:~/kuBig2025/raspberryPi $ ./hello
+안녕하세요!
+
+
+-와이어링 파일 설치
+git clone https://github.com/WiringPi/WiringPi.git
+hs@hs:~/kuBig2025/raspberryPi/WiringPi $ sudo ./build
+
+cc-o hello  helloRaspberry.c -lwiringPi
+-l을 뒤에 붙여줘야한다.
+
+-----------------------------
+현재 git clone 연결
+
+git remote -v 로 본인의 레포지토리로 지정이 되어있는지 확인하시고
+
+git config --global user.name "사용자 이름"
+git config --global user.email "이메일 주소"
+
+을 본인에 맞춰 수정해서 입력하시면 git push가 정상적으로 될겁니다
+------------------------------------------
+표준규약 HAL
+led 스위치 제어하고
+make 파일 만듦
+
+-------------------------
+사용자 모드 .커널 모드가 있는데 권한 설정이 되어있음
+메모리 문제 때문에 그럼, 핵심적인것은 커널모드에있음.
+메모리 접근을 못하게 되어있음.(보안,리소스관리 등을 위해)
+커널을 통해서 접근을 할수밖에 없음
+
+
+------------------------------------------
+make파일
+
+TARGET= helloRaspberry switch_led device_gpio interupt
+all: ${TARGET}
+CFLAGS = -lwiringPi
+
+% : %.c
+	cc -o $@ $< ${CFLAGS}
+clean :
+	rm ${TARGET}
+
+---------------------------------------------
+커널 모듈 추가 책 67P~71P 참고
+
+#2025-04-02
+
+복합적인 프로세스 방법
+1. 다중터미널
+2. 데몬- 터미널 종속적으로 실행된다
+멀티태스킹 운영 체제에서 데몬은 사용자가 직접적으로 제어하지 않고, 백그라운드에서 돌면서 여러 작업을 하는 프로그램을 말한다. 시스템 로그를 남기는 syslogd처럼 보통 데몬을 뜻하는 ‘d’를 이름 끝에 달고 있으며, 일반적으로 프로세스로 실행된다.
+3. nohup
+
+프로세스 종료명령어(ps,kil),
+
+tmux(터미널 멀티플렉서): 터미널을 다루는데 터미널이 꺼지지 않음.
+
+-systemd(시스템 데몬): systemd는 리눅스 시스템과 서비스 관리자로, 초기화 시스템(init), 시스템 서비스 관리자, 그리고 세션 관리자의 역할을 합니다. 대부분의 최신 리눅스 배포판에서는 기본 초기화 시스템으로 systemd를 사용합니다. systemd는 시스템의 부팅 과정을 책임지며, 시스템이 가동되는 동안 서비스들을 시작, 중지, 관리합니다.
+
+------------------------------------------------------
+
+터미널 다중제어.
+-top : os확인
+-tail -f /var/log/syslog
+-sudo apt install htop: 설치
+-ps -al
+
+nohup htop &
+----------------------------------------------------------
+touch mydemon.sh
+code mydemon.sh
+
+
+#daemon.sh
+
+#!/bin/bash
+
+mkdir -p /var/log/mydaemon
+
+while true; do
+    date >> /var/log/mydaemon/system_info.log
+    uptime >> /var/log/mydaemon/system_info.log
+    echo "----------------------------" >> /var/log/mydaemon/system_info.log
+    sleep 5
+done
+-----------------------------------------------------
+#mydaemon.service
+
+[Unit]
+Description=My System Monitor Daemon
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/home/hwaseop/mydemon.sh
+Restart=always
+User=root
+StandardOutput=append:/var/log/mydaemon/service.log
+StandardError=append:/var/log/mydaemon/error.log
+
+[Install]
+WantedBy=multi-user.target
+-------------------------------------------------------
+ ls -al 권한 확인
+sudo chmod +x mydaemon.sh: -> x 권한 부여
+o ./mydemon.sh
+$ cat /var/log/mydaemon/system_info.log
+
+=-------------------------------------------
+sudo systemctl start mydaemon.service
+sudo systemctl status mydaemon.service
+
+1. sudo touch mydaemon.service
+2. sudo nano mydaemon.service
+3. cat mydaemon.service
+cd /etc/systemd/system
+4. sudo systemctl stop mydaemon.service
+5. sudo systemctl start mydaemon.service
+6. sudo systemctl status mydaemon.service
+sudo systemctl daemon-reload 
+
+
+LED_PWD제어
+BUZZER제어
+i2cdetect -y 1 : i2c장비를 연결했을떄 하드웨어 장비를 감지
+
+
+2025-04-03
+
+---------------------------------------------------------
+권한 획득 및 제거
+cd /sys/class/gpio/
+ls
+echo 23 >export
+echo 535 >export 바꿔줘야한다,
+그다음 ls하면 gpio535를 확인할 수 있다.
+echo 535 > unexport
+
+ehco
+-echo 23 > 
+리눅스/유닉스 쉘 명령어로, 다음과 같은 의미를 가지고 있음.
+단순히 23이라는 내용을 가진 텍스트 파일 export가 생성됨
+기존에 export 파일이 있었다면 내용이 덮어쓰기됨
+---------------------------------------------------------------
+hs@hs:~/kuBig2025/raspberryPi/module/led $ > 이 폴더에서
+커널 led제어
+make
+sudo insmod led_module.ko -led4개 on
+dmesg
+sudo rmmod led_module
+-------------------------------------------------------
+kernel interrupt를 통한 switch 상태 확인 프로그램.
+
+sudo insmod switch_interrupt.ko
+sudo rmmod switch_interrupt
+
+dmesg로 메세지를 확인할수있음
+------------------------------------------------------
+
+디바이스 드라이버
+sudo insmod driver_exam.ko
+sudo mknod /dev/driver_exam c 220 0 ->드라이버 생성
+sudo chmod 666 /dev/driver_exam ->드라이버 권한 설정
+
+
+echo "write" > /dev/driver_exam
+----------------------------------------------------------------
+폴더 잘 확인해서 해야한다.
+
+1.led_driver
+
+ls /dev
+
+sudo insmod led_driver.ko
+sudo mknod /dev/led_driver c 221 0
+sudo chmod 666 /dev/led_driver
+ls /dev/led_driver -al
+(삭제: sudo rm /dev/led_driver)
+dmesg
+rm led_driver_native
+dmesg
+cc led_driver_native.c -o led_driver_native
+./led_driver_native 
+
+
+----switch_driver-----------------------
+ls /dev (dev확인)
+make
+sudo insmod switch_driver.ko
+sudo rmmod switch_driver
+dmesg
+
+sudo insmod switch_driver.ko
+sudo mknod /dev/switch_driver c 222 0
+sudo chmod 666 /dev/switch_driver
+dmesg
+ls /dev/switch_driver -al
+
+cc switch_driver_native.c -o switch_driver_native
+./switch_driver_native
+
+*에러
+insmod: ERROR: could not insert module switch_driver.ko: File exists
+-> rm으로 지웠다가 다시 코드실행
+
 
 
 

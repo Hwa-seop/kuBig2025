@@ -20,8 +20,12 @@
         "uart.h": "c",
         "stdlib.h": "c",
         "dht11.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "wiringpi.h": "c",
+        "compare": "c",
+        "module.h": "c",
+        "led_modulec": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled",
-    "cmake.sourceDirectory": "/home/hwaseop/ku_lhs2025"
+    "cmake.sourceDirectory": "/home/hs/kuBig2025"
 }
