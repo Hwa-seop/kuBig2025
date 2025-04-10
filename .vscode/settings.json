@@ -25,7 +25,8 @@
         "compare": "c",
         "module.h": "c",
         "led_modulec": "cpp",
-        "queue.h": "c"
+        "queue.h": "c",
+        "list.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "cmake.sourceDirectory": "/home/hs/kuBig2025"
