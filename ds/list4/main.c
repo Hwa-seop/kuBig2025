@@ -32,8 +32,8 @@ int main(void)
     d=3.3;          insertFirstNode(&list2, &d); // [3.3,4.4]
     d=1.1;          insertFirstNode(&list2, &d); // [1.1,3.3,4.4]
     double f=1.1; 
-        f=2.2;      insertNode(&list2, &f, &d);   // [1,2,3.3,4.4]
-        f=3.3;      deleteNode(&list2, &d);      //[1.1,2.2,4.4];
+        d=2.2;      insertNode(&list2, &f, &d);   // [1,2,3.3,4.4]
+        d=3.3;      deleteNode(&list2, &d);      //[1.1,2.2,4.4];
     printList(&list2,printDouble);
 
     cleanupList(&list1);
