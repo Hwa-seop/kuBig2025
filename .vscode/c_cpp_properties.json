@@ -5,50 +5,19 @@
 //
 {
     "configurations": [
-        {
-            "name": "PlatformIO",
-            "includePath": [
-                "/home/hwaseop/ku_lhs2025/src",
-                "/home/hwaseop/ku_lhs2025/lib/at25",
-                "/home/hwaseop/ku_lhs2025/lib/clcd",
-                "/home/hwaseop/ku_lhs2025/lib/dht11",
-                "/home/hwaseop/ku_lhs2025/lib/i2c",
-                "/home/hwaseop/ku_lhs2025/lib/lcd",
-                "/home/hwaseop/ku_lhs2025/lib/sht20",
-                "/home/hwaseop/ku_lhs2025/lib/uart",
-                "/home/hwaseop/ku_lhs2025/lib/uart0",
-                ""
-            ],
-            "browse": {
-                "limitSymbolsToIncludedHeaders": true,
-                "path": [
-                    "/home/hwaseop/ku_lhs2025/src",
-                    "/home/hwaseop/ku_lhs2025/lib/at25",
-                    "/home/hwaseop/ku_lhs2025/lib/clcd",
-                    "/home/hwaseop/ku_lhs2025/lib/dht11",
-                    "/home/hwaseop/ku_lhs2025/lib/i2c",
-                    "/home/hwaseop/ku_lhs2025/lib/lcd",
-                    "/home/hwaseop/ku_lhs2025/lib/sht20",
-                    "/home/hwaseop/ku_lhs2025/lib/uart",
-                    "/home/hwaseop/ku_lhs2025/lib/uart0",
-                    ""
-                ]
-            },
-            "defines": [
-                "F_CPU=16000000L",
-                "PLATFORMIO=60118",
-                "ARDUINO_AVR_ATmega128",
-                "__AVR_ATmega128__",
-                ""
-            ],
-            "cStandard": "gnu11",
-            "cppStandard": "gnu++11",
-            "compilerPath": "/home/hwaseop/.platformio/packages/toolchain-atmelavr/bin/avr-gcc",
-            "compilerArgs": [
-                "-mmcu=atmega128",
-                ""
-            ]
-        }
+      {
+        "name": "Linux",
+        "includePath": [
+          "${workspaceFolder}/**",
+          "/usr/include/c++/11",
+          "/usr/include/x86_64-linux-gnu/c++/11",
+          "/usr/include"
+        ],
+        "compilerPath": "/usr/bin/g++",
+        "cStandard": "c11",
+        "cppStandard": "c++17",
+        "intelliSenseMode": "linux-gcc-x64"
+      }
     ],
     "version": 4
-}
+  }
