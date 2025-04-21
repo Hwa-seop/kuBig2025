@@ -5,7 +5,10 @@ project(MainProject)
 #include(sqlQuery/CMakeLists.txt)
 #include(c_example/part1/CMakeLists.txt)
 
-add_subdirectory(sqlQuery)
-add_subdirectory(c_example/part1)
-add_subdirectory(c_example/part2)
-add_subdirectory(c_example/part3)
+# add_subdirectory(sqlQuery)
+# add_subdirectory(c_example/part1)
+# add_subdirectory(c_example/part2)
+# add_subdirectory(c_example/part3)
+add_subdirectory(stl)
+
+
