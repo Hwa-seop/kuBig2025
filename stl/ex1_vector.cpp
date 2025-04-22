@@ -15,7 +15,7 @@ int main()
 
     auto it = v.begin() + 2;
     v.erase(it);
-    v.at(0)=2; //원소레 접근해서 변경 
+    v.at(0)=2; //원소에 접근해서 변경 
 
     // for문을 쓰는 첫 번째
     for (int i=0;i<v.size();i++)
