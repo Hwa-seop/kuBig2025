@@ -1,7 +1,7 @@
 #include <iostream>
 #include <memory>
 using namespace std;
-
+// p1->p2->ptr 주소 이동
 class Myclass
 {
 public:
