@@ -14,8 +14,8 @@
           "/usr/include"
         ],
         "compilerPath": "/usr/bin/g++",
-        "cStandard": "c11",
-        "cppStandard": "c++17",
+        "cStandard": "c17",
+        "cppStandard": "c++23",
         "intelliSenseMode": "linux-gcc-x64"
       }
     ],
