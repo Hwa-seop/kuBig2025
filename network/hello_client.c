@@ -8,7 +8,6 @@
 int main(int argc, char *argv[])
 {
     int serv_sock;
-
     struct sockaddr_in serv_addr;
 
     if (argc != 3)
@@ -17,21 +16,30 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
-    serv_sock = socket(PF_INET, SOCK_STREAM, 0); // TCP 설정
+    serv_sock = socket(PF_INET, SOCK_STREAM, 0);
+    if (serv_sock == -1)
+    {
+        perror("socket error");
+        exit(1);
+    }
 
     memset(&serv_addr, 0, sizeof(serv_addr));
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_addr.s_addr = inet_addr(argv[1]);
     serv_addr.sin_port = htons(atoi(argv[2]));
 
-    connect(serv_sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)); // listen 상태의 서버에 접속
-    // 연결된 상태의 코드....
-    // char message[30];
-    // read(serv_sock, message, sizeof(message) - 1);
-    // message[30] = '\0';
-    // printf("서버에서 받은 메세지: %s \n", message);
-    char message[] = "퇴근 30분전 >_<";
-    write(serv_sock, message, sizeof(message));
+    if (connect(serv_sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) == -1)
+    {
+        perror("connect error");
+        exit(1);
+    }
+
+    char message[] = "윤성의의 열혈 TCP/IP 소켓프로그래밍!!";
+    if (write(serv_sock, message, strlen(message)) == -1)
+    {
+        perror("write error");
+        exit(1);
+    }
 
     close(serv_sock);
 
