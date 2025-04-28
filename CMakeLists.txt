@@ -12,6 +12,7 @@ project(MainProject)
 add_subdirectory(stl)
 add_subdirectory(smartpoint)
 add_subdirectory(cpp)
+add_subdirectory(network)
 
 
 
