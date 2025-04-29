@@ -14,7 +14,7 @@ add_subdirectory(smartpoint)
 add_subdirectory(cpp)
 add_subdirectory(network/ipc)
 add_subdirectory(network/util)
-add_subdirectory(network/tcp)
+add_subdirectory(network/tcp_udp)
 
 
 
