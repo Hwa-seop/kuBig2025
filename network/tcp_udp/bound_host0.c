@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
         error_handling("바인드 에러!!!");
 
     char message[BUF_SIZE];
-    for (int i = 0; i < 3; ++i)
+    for (int i = 0; i < 5; ++i)
     {
         printf("start \n");
         sleep(5);

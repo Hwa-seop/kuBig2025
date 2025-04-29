@@ -12,9 +12,12 @@ void error_handling(char *message);
 int main(int argc, char *argv[])
 {
     int serv_sock;
-    char msg1[] = "안녕!";
-    char msg2[] = "나는 UDP 호스트야!";
-    char msg3[] = "방가워";
+    char msg1[] = "메세지 ";
+    char msg2[] = "보내는 연습을";
+    char msg3[] = "하는 중입니다.";
+    char msg4[] = "3개를 5개로";
+    char msg5[] = "늘렸습니다.";
+
 
     struct sockaddr_in serv_addr;
     socklen_t clnt_addr_size;
@@ -37,6 +40,10 @@ int main(int argc, char *argv[])
     sendto(serv_sock, msg1, sizeof(msg1), 0, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
     sendto(serv_sock, msg2, sizeof(msg2), 0, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
     sendto(serv_sock, msg3, sizeof(msg3), 0, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
+    sendto(serv_sock, msg4, sizeof(msg4), 0, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
+    sendto(serv_sock, msg5, sizeof(msg5), 0, (struct sockaddr *)&serv_addr, sizeof(serv_addr));
+
+
     printf("send done!!\n");
 
     close(serv_sock);
