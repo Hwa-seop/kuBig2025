@@ -3,7 +3,7 @@
 
 int main()
 {
-    //네트워크 빅엔디안, 우분투 리틀엔디
+    //네트워크 빅엔디안, 우분투 리틀엔디안
     unsigned short host_port=0x1234;
     unsigned short net_port;
     unsigned long host_addr=0x12345678;
