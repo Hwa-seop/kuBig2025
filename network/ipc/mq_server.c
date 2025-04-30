@@ -26,7 +26,6 @@ int main()
         bytes_read=mq_receive(mq,buffer,MAX_MSG_SIZE+1,NULL);
         buffer[bytes_read]='\0';
         printf("서버에서 받은 메세지: %s\n",buffer);
-
     }
     mq_close(mq);
     mq_unlink(QUEUE_NAME);
