@@ -1,5 +1,4 @@
-//서버 실행 하고
-//build/network 에서 ./mq_server 실행, ./mq_client
+// buffer에 있는 메세지를 서버로 전송함.
 
 #include <fcntl.h>
 #include <mqueue.h>
@@ -13,7 +12,6 @@
 int main()
 {
     mqd_t mq=mq_open(QUEUE_NAME,O_WRONLY);
-    
     char buffer[]="Hello from Client!!";
 
     mq_send(mq,buffer,strlen(buffer)+1,0);
@@ -21,4 +19,5 @@ int main()
 
     mq_close(mq);
     return 0;
+
 }
