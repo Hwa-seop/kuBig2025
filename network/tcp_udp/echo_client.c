@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     serv_addr.sin_port = htons(atoi(argv[2]));
 
     if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) == -1)
-        error_handling("connect() 열기 실패!! \n");
+        error_handling("connect() 열기 실패!! \n"); //listen 상태의 서버에 접속
     else
         puts("Connected............");
 
@@ -42,11 +42,12 @@ int main(int argc, char *argv[])
         if(!strcmp(message,"q\n")||!strcmp(message,"Q\n"))
             break;
         str_len = write(sock, message, strlen(message));
-        while(recv_len <str_len)
+        while (recv_len < str_len)
         {
-            recv_len(sock,message,BUF_SIZE-1);
-            if(recv_cnt==-1){
-                fputs("read() 에러!!!");
+            recv_cnt=read(sock,message,BUF_SIZE-1);
+            if(recv_cnt==-1)
+            {
+                fputs("read() 에러!!!",stderr);
                 break;
             }
             recv_len+=recv_cnt;
