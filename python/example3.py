@@ -22,16 +22,16 @@ I said something wrong, now I long for yesterday.
 Yesterday love was such an easy game to play.
 Now I need a place to hide away.
 Oh, I believe in yesterday.
-"""
+"""#멀티 라인 문자열
     unique_word = ","
     word = ""
     i = 0
-    text = text.lower()
+    text = text.lower() #전체 문자열 소문자로 변환
     while i < len(text):
         if text[i] == " " or text[i] == "\n":
             if word.strip() and word.strip() not in unique_word:
                 unique_word += word.strip() + ","
-                count = len(text.split(word.strip()))
+                count = len(text.split(word.strip())) - 1
                 print(word.strip(), ":", count, "번")
             word = ""
         if text[i].isalnum() or text[i] == " ":

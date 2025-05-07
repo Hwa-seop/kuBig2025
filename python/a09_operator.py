@@ -1,5 +1,5 @@
 def main():
-    pi=3.141592
+    pi=3.14
     
     #type casting!!
     int_pi=int(pi)

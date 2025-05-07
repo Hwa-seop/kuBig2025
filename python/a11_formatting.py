@@ -1,9 +1,9 @@
 def main():
-    string = 'abc'
-    string2 = 'this is format test: {}'.format(10) 
+    string ='abc'
+    string2 ='this is format test: {}'.format(10) 
     print(string)
     print(string2)
-    string3='this is format test : {} {} {}'.format(10,20,30)
+    string3='this is format test: {} {} {}'.format(10,20,30)
     print(string3)
     
     string3='this is format test: {2:d},{1:5d},{0:05d}'.format(10,20,30)
