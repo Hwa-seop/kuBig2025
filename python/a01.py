@@ -1,11 +1,12 @@
 import a02_keyword
-print("hello world")
+print("hello, world")
 
-def hello1():
-	print("1function hello")
-	print("2function hello")
-	print("3function hello")
-	print("ha")
+def print_hello():
+    print("function hello")
+    print("2function hello")
+    print("3function")
 
-hello1()
+def print_hello2():
+    pass
 
+print_hello()

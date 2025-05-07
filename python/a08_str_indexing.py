@@ -1,32 +1,26 @@
 def main():
-    print("안녕하세요")
-    print("안녕하세요"[0])
-    print("안녕하세요"[1])
-    print("안녕하세요"[2])
-    print("안녕하세요"[3])
-    print("안녕하세요"[4])
+    print("화이팅")
+    print("화이팅"[0])
+    print("화이팅"[1])
+    print("화이팅"[2])
     
-    say_hello="안녕하세요"
-    print(say_hello[0],end=' ')
-    print(say_hello[1],end=' ')
-    print(say_hello[2],end=' ')
-    print(say_hello[3],end=' ')
-    print(say_hello[4])
+    say_fighting="화이팅"
+    print(say_fighting[0],end=' ')
+    print(say_fighting[1],end=' ')
+    print(say_fighting[2])
     
-    for c in say_hello:
+    for c in say_fighting:
         print(c,end='')
     print()
 
-    say_hello*=3
-    print(say_hello)
-    print(say_hello[5:10])
-    print(say_hello[-3:])
-    print(say_hello[0:10:2])
-    print(say_hello[-1::-1])
-    print("say_hello의 길이 : ",say_hello.__len__()) #len() 함수 호출하면 .__len__()이 실행된다.
+    say_fighting*=3
     
+    print(say_fighting)
+    print(say_fighting[2:5])
+    print(say_fighting[-3:])
+    print(say_fighting[0::3])
+    print(say_fighting[-1::-1])
+    print("say_fighting의 길이 : ",say_fighting.__len__()) #len() 함수 호출하면 .__len__()이 실행된다.
     
 if __name__=="__main__":
     main()
-
-
