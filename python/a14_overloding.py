@@ -9,7 +9,7 @@ def main():
     a = Myclass(10)
     b = Myclass(10)
     if a == b:
-        print("a와 비는 같다.")
+        print("a와 b는 같다.")
         
 if __name__=="__main__":
     main()
