@@ -1,0 +1,6 @@
+#sudo apt install mypy
+#stubgen -m mymodule
+
+class Hello:
+    def __init__(self, name : str) -> None: ...
+    def greet(self) -> str: ...
