@@ -1,8 +1,7 @@
 def main():
     dict_a = dict()
     dict_b = {1:1,2:2,3:2} #정의 할때 set과 헷갈리지 않게 주의
-    #dict_b={1,2,3}-> set class
-    dict_c={1,2,3}
+    dict_c={1,2,3} #set class
     
     print(type(dict_a),type(dict_b),type(dict_c)) 
 

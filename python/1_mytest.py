@@ -1,1 +1,7 @@
-print(1,2,3,sep="\n")
+# val = input("입력: ")
+# while val != "quit":
+#     print(val)
+#     val = input("입력: ")
+
+while (val := input("입력: ")) != "x":
+    print(val)
