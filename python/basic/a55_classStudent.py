@@ -1,6 +1,5 @@
 import random
 
-
 class Student:
     def __init__(self, name, korean, math, english, science):
         # *this = self (this->) cpp 에서는 생략 가능
@@ -35,11 +34,10 @@ def main():
             random.randint(65, 100),
             random.randint(65, 100),
         )
-        for _ in range(50)
+        for _ in range(10)
     ]
     for student in students:
         print(student_to_string(student, 4))
-
 
 if __name__ == "__main__":
     main()
