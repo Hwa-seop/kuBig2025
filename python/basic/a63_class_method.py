@@ -1,6 +1,5 @@
 import random
 
-
 class Student:
     count_ = int()
     students_ = list()
