@@ -30,6 +30,20 @@
     },
     "C_Cpp.errorSquiggles": "disabled",
     "cmake.sourceDirectory": "/home/hwaseop/ku_lhs2025",
-    "editor.defaultFormatter": "vscode.json-language-features",
-    "editor.formatOnSave": true
+    // "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "prettier.singleQuote": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "prettier.semi": true,
+    "prettier.useTabs": false,
+    "prettier.tabWidth": 4,
+    "prettier.trailingComma": "all",
+    "prettier.printWidth": 120,
+    "prettier.parser": "babel",
+    "prettier.bracketSpacing": true,
+    "prettier.arrowParens": "avoid",
+    "prettier.endOfLine": "auto"
 }
