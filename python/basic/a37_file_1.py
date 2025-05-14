@@ -1,5 +1,5 @@
 def main():
-    f = open("data/text.txt","w")
+    f = open("basic/text1.txt","w")
     print(f.fileno()) #file descripter
     f.write("hello, Python Programming 111\n")
     f.close()
