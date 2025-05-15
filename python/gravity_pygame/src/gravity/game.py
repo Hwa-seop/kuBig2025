@@ -1,3 +1,4 @@
+#uv run src/main.py -> 실행
 import time
 
 import pygame
