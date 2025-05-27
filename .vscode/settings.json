@@ -27,7 +27,8 @@
         "led_modulec": "cpp",
         "queue.h": "c",
         "list.h": "c",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "iostream": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled",
     "cmake.sourceDirectory": "/home/hwaseop/ku_lhs2025",
