@@ -18,6 +18,8 @@ project(MainProject)
 # add_subdirectory(network/multiProcess)
 # add_subdirectory(hs_practice)
 add_subdirectory(opencv/part1)
+add_subdirectory(opencv/part2)
+
 
 
 
