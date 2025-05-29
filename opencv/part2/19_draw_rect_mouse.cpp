@@ -29,8 +29,8 @@ int main()
         cap >> frame;
         if (frame.empty())
             break; // 마지막 프레임 처리
-        // rectangle(frame, rec, red, 3, LINE_AA);
-        circle(frame, Point(100, 200), 100, red, 1, LINE_AA);
+        rectangle(frame, rec, red, 3, LINE_AA);
+        // circle(frame, Point(100, 200), 100, red, 1, LINE_AA);
         cout << rec << endl;
         imshow("img", frame);
         if (waitKey(1000 / fps) == 27) // fps 조절 숫자.
