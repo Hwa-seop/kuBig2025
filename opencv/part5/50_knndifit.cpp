@@ -7,6 +7,7 @@
 using namespace std;
 using namespace cv;
 using namespace cv::ml;
+
 String folderPath = "/home/hwaseop/ku_lhs2025/opencv/data/";
 
 int main()
