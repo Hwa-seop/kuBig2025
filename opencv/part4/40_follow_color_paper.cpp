@@ -1,80 +1,123 @@
 // 카메라 켜서 frame 확보
-// 색공간->hsv로 변경 clone()해서 따로 처리
-//  양방향 필터 처리
-// inrange-> 색종이를 인식
-// morph 함수 -> 이진화 Mat정리
+// 색 공간 -> hsv 로 변경 clone() 해서 따로 처리.
+// 양방향 필터 처리
+// inrange -> 색종이를 인식
+// morph 함수 -> 이진화 Mat 정리
 // labeling
-// 화면에 rectangle로 표시
-// putText,ft2로 색종이 or color-paper
-// 사각형과 폰트는 색종이를 따라다녀야함
-
-#include <opencv2/opencv.hpp>
+// 화면에 rectangle 로 표시
+// putText, ft2 로 색종이 or color-paper
+// 사각형과 폰트는 색종이를 따라다녀야 함!
+#include </home/hwaseop/ku_lhs2025/opencv/part2/color.hpp>
 #include <iostream>
-using namespace std;
+#include <opencv2/freetype.hpp>
+#include <opencv2/opencv.hpp>
+#include <vector>
+
 using namespace cv;
+using namespace std;
+
+Ptr<cv::freetype::FreeType2> rapperFreeTypeCenterSetup(const String &fontpath)
+{
+    Ptr<cv::freetype::FreeType2> ft2 = freetype::createFreeType2();
+    ft2->loadFontData(fontpath, 0);
+    return ft2;
+}
+
+void rapperFreeTypeCenter(Mat &img, Ptr<cv::freetype::FreeType2> ft2, const String &text, const int &textHeight, const int &thickness, const int &line_type, const Scalar &color, const Point &textOrg, const bool &withRect)
+{
+    Size textSize = ft2->getTextSize(text, textHeight, -1, 0) + Size(0, 20);
+    // bottom padding을 위해 높이 20 추가
+    Point top_left((textOrg.x - textSize.width), (textOrg.y - textSize.height));
+    Rect textRect(top_left, textSize);
+    if (withRect)
+    {
+        rectangle(img, textRect, color, 3, line_type); // 텍스트 영역 사각형 그리기
+    }
+
+    ft2->putText(img, text, textRect.tl(), textHeight, color, thickness, line_type, false);
+}
 
 int main()
 {
+    // 카메라 켜서 frame 확보
     VideoCapture cap(0);
     if (!cap.isOpened())
     {
-        cerr << "❌ 카메라를 열 수 없습니다." << endl;
+        cout << "Error: Could not open camera." << endl;
         return -1;
     }
 
+    // FreeType2 초기화
+    auto ft2 = rapperFreeTypeCenterSetup("/home/hwaseop/ku_lhs2025/opencv/data/NanumPenScript-Regular.ttf");
+
+    Mat frame, hsv, hsv_clone, blurred, mask, morph;
+    int low, high;
+    namedWindow("Color Paper Detection");
+    createTrackbar("hue-lower", "Color Paper Detection", &low, 255);
+    createTrackbar("hue-high", "Color Paper Detection", &high, 255);
+
     while (true)
     {
-        Mat frame, hsv, filtered, mask, morphed;
+        // 프레임 캡처
         cap >> frame;
         if (frame.empty())
-            break;
-
-        cvtColor(frame, hsv, COLOR_BGR2HSV);
-        Mat hsv_clone = hsv.clone();
-        bilateralFilter(hsv_clone, filtered, 9, 75, 75);
-
-        // ✅ HSV 범위 완화: 연한 분홍 ~ 붉은 계열까지 포함
-        Scalar lower_pink(140, 30, 100);
-        Scalar upper_pink(180, 150, 255);
-        inRange(filtered, lower_pink, upper_pink, mask);
-
-        // Morphology 연산
-        Mat kernel = getStructuringElement(MORPH_RECT, Size(5, 5));
-        morphologyEx(mask, morphed, MORPH_OPEN, kernel);
-        morphologyEx(morphed, morphed, MORPH_CLOSE, kernel);
-
-        // 컨투어 찾기
-        vector<vector<Point>> contours;
-        findContours(morphed, contours, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
-
-        for (const auto &contour : contours)
         {
-            double area = contourArea(contour);
-            if (area < 500 || area > 30000)
-                continue; // 완화된 면적 조건
-
-            vector<Point> approx;
-            approxPolyDP(contour, approx, arcLength(contour, true) * 0.03, true); // 근사율도 살짝 느슨하게
-
-            if (approx.size() >= 4 && isContourConvex(approx))
-            {
-                Rect box = boundingRect(approx);
-
-                float aspect = (float)box.width / box.height;
-                if (aspect > 0.5 && aspect < 2.0)
-                { // 정사각형~직사각형 모두 허용
-                    rectangle(frame, box, Scalar(0, 255, 0), 2);
-                    putText(frame, "Color Paper", Point(box.x, box.y - 10), FONT_HERSHEY_SIMPLEX, 0.8, Scalar(0, 0, 255), 2);
-                }
-            }
+            cout << "Error: Could not read frame." << endl;
+            break;
         }
 
-        imshow("Color Paper Tracker", frame);
-        imshow("Mask View", mask);
-        if (waitKey(10) == 27)
+        // 색 공간 -> HSV로 변경 및 clone()
+        cvtColor(frame, hsv, COLOR_BGR2HSV);
+        hsv_clone = hsv.clone();
+
+        // 양방향 필터 처리
+        bilateralFilter(hsv_clone, blurred, 9, 75, 75);
+
+        // inRange -> 색종이 인식 (예: 빨간색 종이, HSV 범위 설정)
+        Scalar lower_red(0, 0, 0);
+        Scalar upper_red(164, 255, 255);
+        inRange(blurred, lower_red, upper_red, mask);
+        bitwise_not(mask, mask);
+
+        // morph 함수 -> 이진화 Mat 정리
+        Mat kernel = getStructuringElement(MORPH_RECT, Size(5, 5));
+        morphologyEx(mask, morph, MORPH_OPEN, kernel);
+        morphologyEx(morph, morph, MORPH_CLOSE, kernel);
+        imshow("morph", morph);
+
+        // Labeling
+        Mat labels, stats, centroids;
+        int num_labels = connectedComponentsWithStats(morph, labels, stats, centroids);
+
+        // 화면에 rectangle 및 텍스트 표시
+        for (int i = 1; i < num_labels; i++)
+        {
+            // stats 에서 픽셀의 수가 500 이상이면 조건
+            if (stats.at<int>(i, CC_STAT_AREA) < 500)
+                continue;
+            int x = stats.at<int>(i, CC_STAT_LEFT);
+            int y = stats.at<int>(i, CC_STAT_TOP);
+            int width = stats.at<int>(i, CC_STAT_WIDTH);
+            int height = stats.at<int>(i, CC_STAT_HEIGHT);
+
+            // Rectangle 그리기
+            rectangle(frame, Point(x, y), Point(x + width, y + height), Scalar(0, 255, 0), 1);
+
+            // putText with FreeType2로 "color-paper" 표시
+            rapperFreeTypeCenter(frame, ft2, "color-paper", 50, 1, LINE_AA, red, Point(x, y), true);
+        }
+
+        // 결과 화면 표시
+        imshow("Color Paper Detection", frame);
+
+        // 'q' 키로 종료
+        if (waitKey(1) == 27)
+        {
             break;
+        }
     }
 
+    // 자원 해제
     cap.release();
     destroyAllWindows();
     return 0;

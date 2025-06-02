@@ -17,10 +17,11 @@ project(MainProject)
 # add_subdirectory(network/tcp_udp)
 # add_subdirectory(network/multiProcess)
 # add_subdirectory(hs_practice)
-add_subdirectory(opencv/part1)
-add_subdirectory(opencv/part2)
-add_subdirectory(opencv/part3)
+# add_subdirectory(opencv/part1)
+# add_subdirectory(opencv/part2)
+# add_subdirectory(opencv/part3)
 add_subdirectory(opencv/part4)
+add_subdirectory(opencv/part5)
 
 
 
