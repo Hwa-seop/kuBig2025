@@ -1,7 +1,24 @@
-build/
-__pycache__
+# 파이썬 가상환경
+.venv/
 myenv/
-Covid19-dataset/
+python/gravity_pygame/.venv/
 
-echo ".venv/" >> .gitignore
-echo "python/gravity_pygame/.venv/" >> .gitignore
+# 파이썬 캐시
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 빌드 파일
+build/
+dist/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# 운영체제
+.DS_Store
+
+# 데이터셋
+Covid19-dataset/
