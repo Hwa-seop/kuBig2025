@@ -3,3 +3,5 @@ __pycache__
 myenv/
 Covid19-dataset/
 
+echo ".venv/" >> .gitignore
+echo "python/gravity_pygame/.venv/" >> .gitignore
