@@ -1,4 +1,5 @@
 import os
+import random
 import time
 
 import zmq
@@ -19,14 +20,21 @@ def main():
     socket.connect(f"ipc://{IPC_FILE_PATH}")
 
     request_count = 0
+    folder_path = "/home/hwaseop/ku_lhs2025/opencv/data"
+    # jpg 파일만 필터링
+    image_files = [f for f in os.listdir(folder_path) if f.endswith(".jpg")]
     try:
         while True:
-            message = f"요청 메시지 {request_count + 1}"
-            socket.send_string(message)
-            print(f"보낸 메시지: {message}")
+            with open(f"{folder_path}/{image_files[request_count]}", "rb") as f:
+                message = f.read()
+            print(f"전송 이미지 {image_files[request_count]}")
+            socket.send(message)
             response = socket.recv_string()
             print(f"받은 응답: {response}")
             request_count += 1
+            if request_count >= len(image_files):
+                print("모든 이미지 전송 완료")
+                break
             time.sleep(2)
     except KeyboardInterrupt:
         print("클라이언트를 종료합니다.")

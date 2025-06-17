@@ -1,6 +1,7 @@
 import os
-import time
 
+import cv2
+import numpy as np
 import zmq
 
 IPC_FILE_PATH = "/tmp/zmq_server"
@@ -12,14 +13,16 @@ def main():
     os.unlink(IPC_FILE_PATH) if os.path.exists(IPC_FILE_PATH) else None
     socket.bind(f"ipc://{IPC_FILE_PATH}")
     print(f"ZMQ REP 서버가 {IPC_FILE_PATH}에 바인딩되었습니다")
+
     try:
         while True:
-            message = socket.recv_string()
-            print(f"받은 메시지: {message}")
-            response = f"응답: {message}"  # echo 응답 메시지
-            socket.send_string(response)
-            print(f"보낸 응답: {response}")
-            time.sleep(0.1)
+            # 이미지 수신
+            message = socket.recv()
+            image = cv2.imdecode(np.frombuffer(message, np.uint8), cv2.IMREAD_COLOR)
+            cv2.imshow("Received Image", image)
+
+            socket.send_string(f"예측 결과: 이미지 수신 완료")
+            cv2.waitKey(1)
     except KeyboardInterrupt:
         print("서버를 종료합니다.")
     finally:
