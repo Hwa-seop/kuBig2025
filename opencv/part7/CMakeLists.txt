@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(OpenCV_part7)
+project(OpenCV_part6)
 
 find_package(OpenCV REQUIRED)
 
@@ -10,7 +10,4 @@ foreach(SOURCE ${SOURCES})
     add_executable(${EXE_NAME} ${SOURCE})
     target_link_libraries(${EXE_NAME} ${OpenCV_LIBS})
 endforeach()
-
-
-
 
