@@ -11,3 +11,6 @@ foreach(SOURCE ${SOURCES})
     target_link_libraries(${EXE_NAME} ${OpenCV_LIBS})
 endforeach()
 
+
+
+
