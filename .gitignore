@@ -22,3 +22,10 @@ dist/
 
 # 데이터셋
 Covid19-dataset/
+
+
+# yolov5 전체 무시
+ml_dl_python/yolov5/
+# OpenCV models, utils 폴더 무시
+opencv/part7/models/
+opencv/part7/utils/
